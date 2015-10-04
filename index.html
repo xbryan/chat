@@ -6,11 +6,20 @@
 <body>
   <div class="container">
     <input class="username" name="username" placeholder="Username" autocomplete="off">
+
     <form class="sender" action="">
       <input class="message" name="message" placeholder="Message" autocomplete="off">
       <button type="submit">Send</button>
     </form>
     <ul class="messages"></ul>
   </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+    // Emits a "connection" event to the server
+    var socket = io();
+  </script>
+  <script src="/chat.js"></script>
 </body>
 </html>
