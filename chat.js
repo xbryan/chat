@@ -12,6 +12,16 @@ $('.sender').submit(function(event) {
   return false; 
 });
 
+$('.username').change(function(event) {
+  console.log('username changed to:', $('.username').val());
+  socket.emit('nameChange', $('.username').val());
+});
+
+socket.on('nameChange', function(user) {
+  console.log(user);
+  $('.loggedInUsers').prepend(templateUser(user));
+})
+
 socket.on('message', function(message) {
   console.log('received message');
   console.log(JSON.stringify(message));
@@ -23,6 +33,17 @@ var templateMessage = function(message) {
     '<span class="messageUser">' + message.user +
     '</span>: ' +
     '<span class="messageContent">' + message.message +
+    '</span>' +
+  '</div>';
+};
+
+var templateUser = function(user) {
+  return '<div class="loggedIn">' +
+    '<span class="loggedInUser">' +
+      user.name + 
+    '</span>' +
+    '<span hidden class="loggedInId">' +
+      user.id +
     '</span>' +
   '</div>';
 };
