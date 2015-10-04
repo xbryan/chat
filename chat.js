@@ -1,4 +1,3 @@
-// Emits a "connection" event to the server.
 var socket = io();
 
 $('.sender').submit(function(event) {
