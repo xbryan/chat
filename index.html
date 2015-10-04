@@ -2,16 +2,20 @@
 <html>
 <head>
   <title>Chat</title>
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="chat.css">
 </head>
 <body>
   <div class="container">
-    <input class="username" name="username" placeholder="Username" autocomplete="off" tabindex="1" autofocus>
+    <div class="chatContainer">
+      <input class="username" name="username" placeholder="Username" autocomplete="off" tabindex="1" autofocus>
 
-    <form class="sender" action="">
-      <input class="message" name="message" placeholder="Message" autocomplete="off" tabindex="2">
-      <button type="submit">Send</button>
-    </form>
-    <ul class="messages"></ul>
+      <form class="sender" action="">
+        <input class="message" name="message" placeholder="Message" autocomplete="off" tabindex="2">
+        <button type="submit">Send</button>
+      </form>
+      <ul class="messages"></ul>
+    </div>
   </div>
 
   <script src="/socket.io/socket.io.js"></script>
