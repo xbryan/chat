@@ -5,20 +5,31 @@
 </head>
 <body>
   <div class="container">
-    <input class="username" name="username" placeholder="Username" autocomplete="off">
+    <input class="username" name="username" placeholder="Username" autocomplete="off" tabindex="1" autofocus>
 
     <form class="sender" action="">
-      <input class="message" name="message" placeholder="Message" autocomplete="off">
+      <input class="message" name="message" placeholder="Message" autocomplete="off" tabindex="2">
       <button type="submit">Send</button>
     </form>
     <ul class="messages"></ul>
   </div>
 
   <script src="/socket.io/socket.io.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 
   <script>
-    // Emits a "connection" event to the server
+    // Emits a "connection" event to the server.
     var socket = io();
+    $('.sender').submit(function(event) {
+      var message = {user: $('.username').val(), message: $('.message').val()};
+      console.log(JSON.stringify(message));
+      socket.emit('message', message);
+      $('.message').val('');
+
+      // Returning false nullifies default form behavior, which is good. 
+      // It's similar to using event.preventDefault().
+      return false; 
+    });
   </script>
   <script src="/chat.js"></script>
 </body>

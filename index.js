@@ -11,6 +11,12 @@ app.get('/', function(request, response) {
 
 io.on('connection', function(socket) {
   console.log('a user connected');
+  socket.on('disconnect', function(reason) {
+    console.log('a user disconnected because:', reason);
+  });
+  socket.on('message', function(message) {
+    console.log(message.user + ': ' + message.message);
+  });
 });
 
 http.listen(3000, function() {
