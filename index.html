@@ -5,11 +5,12 @@
 </head>
 <body>
   <div class="container">
-    <form class="sender" method="POST">
-      <input class="username" name="username">
-      <input class="message" name="message">
+    <input class="username" name="username" placeholder="Username" autocomplete="off">
+    <form class="sender" action="">
+      <input class="message" name="message" placeholder="Message" autocomplete="off">
       <button type="submit">Send</button>
     </form>
+    <ul class="messages"></ul>
   </div>
 </body>
 </html>
