@@ -17,10 +17,12 @@ $('.username').change(function(event) {
   socket.emit('nameChange', $('.username').val());
 });
 
-socket.on('nameChange', function(user) {
-  console.log(user);
-  $('.loggedInUsers').prepend(templateUser(user));
-})
+socket.on('users', function(users) {
+  $('.loggedInUsers').children().remove();
+  for (var user in users) {
+    $('.loggedInUsers').append(templateUser(users[user]));
+  }
+});
 
 socket.on('message', function(message) {
   console.log('received message');
@@ -41,9 +43,6 @@ var templateUser = function(user) {
   return '<div class="loggedIn">' +
     '<span class="loggedInUser">' +
       user.name + 
-    '</span>' +
-    '<span hidden class="loggedInId">' +
-      user.id +
     '</span>' +
   '</div>';
 };

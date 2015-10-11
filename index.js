@@ -3,6 +3,8 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+var users = {};
+
 app.use(express.static(__dirname));
 
 app.get('/', function(request, response) {
@@ -11,21 +13,18 @@ app.get('/', function(request, response) {
 
 io.on('connection', function(socket) {
   console.log('a user connected');
-  // io.emit('loggedIn', {user: , id: });
+  users[socket.conn.id] = {name: 'unknown'};
+  io.emit('users', users);
 
-  socket.on('disconnect', function(reason) {
-    console.log('a user disconnected because:', reason);
+  socket.on('disconnect', function() {
+    delete users[socket.conn.id];
+    io.emit('users', users);
   });
 
   socket.on('nameChange', function(name) {
-    console.log('changing name');
-    console.log(name);
-    console.log(socket.conn.id);
-    socket.broadcast.emit('nameChange', {
-      name: name, 
-      id: socket.conn.id
-    });
-  })
+    users[socket.conn.id] = {name: name};
+    io.emit('users', users);
+  });
 
   socket.on('message', function(message) {
     console.log(socket.conn.id);
